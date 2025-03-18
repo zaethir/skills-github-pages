@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Character Card Host</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="splash-container">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">ZAETH'S AI HUB</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize" onclick="playSound('click.wav')"></button>
+                    <button aria-label="Maximize" onclick="playSound('click.wav')"></button>
+                    <button aria-label="Close" onclick="playSound('click.wav')"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div id="enter-container">
+                    <button class="enter-button" onclick="startLoading()">Enter</button>
+                    <div id="loading-bar-container" style="display: none;">
+                        <div id="loading-bar"></div>
+                        <span id="loading-percentage">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startLoading() {
+            playSound('load.wav');
+            const enterButton = document.querySelector('.enter-button');
+            const loadingBarContainer = document.getElementById('loading-bar-container');
+            const loadingBar = document.getElementById('loading-bar');
+            const loadingPercentage = document.getElementById('loading-percentage');
+
+            enterButton.style.display = 'none';
+            loadingBarContainer.style.display = 'block';
+
+            let width = 0;
+            const intervalId = setInterval(frame, 25); // 5 seconds = 200 frames
+
+            function frame() {
+                if (width >= 100) {
+                    clearInterval(intervalId);
+                    window.location.href = "main.html";
+                } else {
+                    width++;
+                    loadingBar.style.width = width + '%';
+                    loadingPercentage.innerText = width + '%';
+                }
+            }
+        }
+
+        function playSound(soundFile) {
+            var audio = new Audio(soundFile);
+            audio.play();
+        }
+    </script>
+</body>
+</html>
